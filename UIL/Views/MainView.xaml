@@ -1,0 +1,91 @@
+﻿<Grid x:Class="IocApp.UIL.Views.MainView"
+                xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"  
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:internal="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/internal"
+                xmlns:themeKeys="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/themekeys"
+                Background="WhiteSmoke"
+                mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+
+    <Grid.Resources>
+        <DataTemplate x:Key="deskTemplate">
+            <Grid>
+                <TextBlock
+                    Text="{Binding Desc}" FontSize="72" FontWeight="DemiBold"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Foreground="Gray" Opacity="0.1"
+                    />
+            </Grid>
+        </DataTemplate>
+    </Grid.Resources>
+
+    <dxwui:FlipView
+                    ItemsSource="{Binding Desks}" 
+                    SelectedIndex="{Binding DesktopIndex, Mode=TwoWay}"
+                    ItemTemplate="{StaticResource deskTemplate}"
+                    IsAnimationEnabled="True">
+        <dxwui:FlipView.Resources>
+            <SolidColorBrush x:Key="FocusVisualWhiteStrokeThemeBrush" Color="White"/>
+            <SolidColorBrush x:Key="FocusVisualBlackStrokeThemeBrush" Color="Black"/>
+            <ControlTemplate x:Key="{themeKeys:WindowsUIElementsThemeKey ResourceKey=FlipViewTemplate, IsThemeIndependent=true}" TargetType="dxwui:FlipView">
+                <Grid>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="FocusStates">
+                            <VisualState x:Name="Focused">
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                    <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Unfocused"/>
+                            <VisualState x:Name="PointerFocused"/>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <Border BorderThickness="{TemplateBinding BorderThickness}" Margin="3">
+                        <Grid>
+                            <ScrollViewer x:Name="ScrollingHost"
+                                        IsTabStop="False"
+                                        Padding="{TemplateBinding Padding}"
+                                        HorizontalScrollBarVisibility="Disabled"
+                                        VerticalScrollBarVisibility="Disabled">
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                            <internal:FadingButton
+                                Visibility="Collapsed"
+                                x:Name="PreviousButtonHorizontal" 
+                                Width="70" 
+                                Height="40" 
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Center"/>
+                            <internal:FadingButton 
+                                Visibility="Collapsed"
+                                x:Name="NextButtonHorizontal" 
+                                Width="70" 
+                                Height="40" 
+                                HorizontalAlignment="Right" 
+                                VerticalAlignment="Center"/>
+                            <internal:FadingButton 
+                                Visibility="Collapsed"
+                                x:Name="PreviousButtonVertical" 
+                                Width="70" 
+                                Height="40" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Top"/>
+                            <internal:FadingButton 
+                                Visibility="Collapsed"
+                                x:Name="NextButtonVertical" 
+                                Width="70" 
+                                Height="40" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Bottom"/>
+                        </Grid>
+                    </Border>
+                    <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                    <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                </Grid>
+            </ControlTemplate>
+        </dxwui:FlipView.Resources>
+    </dxwui:FlipView>
+</Grid>

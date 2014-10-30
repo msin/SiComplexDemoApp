@@ -1,0 +1,177 @@
+﻿<dxr:DXRibbonWindow x:Class="IocApp.UIL.Views.MainWindow"
+            xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"  
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+            xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+            xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+            xmlns:cil="clr-namespace:IocApp.CIL;assembly=IocApp.CIL"
+            xmlns:ribbon="clr-namespace:IocApp.CIL.Ribbon;assembly=IocApp.CIL"
+            xmlns:views="clr-namespace:IocApp.UIL.Views"
+            xmlns:helpers="http://schemas.devexpress.com/winfx/2008/xaml/bars/internal"
+            xmlns:extensions="clr-namespace:IocApp.UIL.Extensions"
+            WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True"
+            DataContext="{extensions:DeferredContainer Type=cil:IMain}"
+            Title="IoC Demo Window"  
+            dx:ThemeManager.ThemeName="Office2007Blue"
+            Height="600" Width="1024">
+
+    <dxmvvm:Interaction.Behaviors>
+        <dx:DXMessageBoxService/>
+        <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding LoadedCommand}"/>
+    </dxmvvm:Interaction.Behaviors>
+
+    <dxb:BarManager helpers:BlendHelperForBarsAndRibbon.IsDesignControl="true">
+        <dxb:BarManager.Items>
+            <dxb:BarButtonItem Name="bPrevDesk" Content="Prev" 
+                               Glyph="{dx:DXImage Image=Prev_16x16.png}" 
+                               LargeGlyph="{dx:DXImage Image=Prev_32x32.png}"  
+                               Description="Move to previous desktop."
+                               Hint="Prevous DeskTop"
+                               />
+            <dxb:BarButtonItem Name="bNextDesk" Content="Next" 
+                               Glyph="{dx:DXImage Image=Next_16x16.png}" 
+                               LargeGlyph="{dx:DXImage Image=Next_32x32.png}"  
+                               Description="Move to next desktop."
+                               Hint="Next DeskTop"
+                               />
+            <dxb:BarButtonItem Name="bNew" Content="New" 
+                               Glyph="{dx:DXImage Image=New_16x16.png}" 
+                               LargeGlyph="{dx:DXImage Image=New_32x32.png}" 
+                               Description="New blank document."
+                               Hint="New blank document."
+                               />
+            <dxb:BarButtonItem Name="bOpen" Content="Open" 
+                               Glyph="{dx:DXImage Image=Open_16x16.png}" 
+                               LargeGlyph="{dx:DXImage Image=Open_32x32.png}" 
+                               Description="Open a file."
+                               Hint="Open a file."
+                               />
+            <dxb:BarButtonItem Name="bClose" Content="Close" 
+                               Glyph="{dx:DXImage Image=Close_16x16.png}" 
+                               LargeGlyph="{dx:DXImage Image=Close_32x32.png}" 
+                               Hint="Close the current document"/>
+            <dxb:BarButtonItem Name="bPrint" Content="Print" 
+                               Glyph="{dx:DXImage Image=Print_16x16.png}" 
+                               LargeGlyph="{dx:DXImage Image=Print_32x32.png}" 
+                               Description="Prints the document."
+                               Hint="Prints the document."
+                               />
+            <dxb:BarButtonItem Name="bSave" Content="Save" 
+                               Glyph="{dx:DXImage Image=Save_16x16.png}" 
+                               LargeGlyph="{dx:DXImage Image=Save_32x32.png}" 
+                               Description="Saves the document."
+                               Hint="Saves the document."
+                               />
+            <dxb:BarButtonItem Name="bSaveAs" Content="Save As..." 
+                               Glyph="{dx:DXImage Image=SaveAs_16x16.png}" 
+                               LargeGlyph="{dx:DXImage Image=SaveAs_32x32.png}" 
+                               Description="Save Document As..."
+                               Hint="Save Document As..."
+                               />
+            <dxb:BarButtonItem Name="bCopy" Content="Copy" 
+                               Glyph="{dx:DXImage Image=Copy_16x16.png}" 
+                               LargeGlyph="{dx:DXImage Image=Copy_32x32.png}" 
+                               Description="Save Document As..."
+                               Hint="Copy content..."
+                               />
+            <dxb:BarButtonItem Name="bPaste" Content="Paste" 
+                               Glyph="{dx:DXImage Image=Paste_16x16.png}" 
+                               LargeGlyph="{dx:DXImage Image=Paste_32x32.png}" 
+                               Description="Save Document As..."
+                               Hint="Paste content..."
+                               />
+        </dxb:BarManager.Items>
+
+        <DockPanel
+            x:Name="dockPanel"
+            DataContext="{extensions:DeferredContainer Type=ribbon:IRibbon}">
+            <DockPanel.Resources>
+                <DataTemplate x:Key="itemTemplate">
+                    <ContentControl>
+                        <dxb:BarButtonItem Content="{Binding Name}" Command="{Binding ClickCommand}" Hint="{Binding Hint}"/>
+                    </ContentControl>
+                </DataTemplate>
+
+                <DataTemplate x:Key="checkTemplate" DataType="ribbon:IDesk">
+                    <ContentControl>
+                        <dxb:BarCheckItem Content="{Binding Name}" 
+                                          IsChecked="{Binding Checked, Mode=TwoWay}"
+                                          GroupIndex="{Binding ElementName=dockPanel, Path=DataContext.DesktopIndex, Mode=TwoWay}"
+                                          Glyph="/IocApp.UIL;Component/Images/Desktop.png" GlyphSize="Small"
+                                          Hint="{Binding Desc}"/>
+                    </ContentControl>
+                </DataTemplate>
+                
+                <DataTemplate x:Key="groupTemplate">
+                    <ContentControl>
+                        <dxr:RibbonPageGroup Caption="{Binding Name}" ItemLinksSource="{Binding Items}" ItemTemplate="{StaticResource itemTemplate}"/>
+                    </ContentControl>
+                </DataTemplate>
+                
+                <DataTemplate x:Key="pageTemplate">
+                    <ContentControl>
+                        <dxr:RibbonPage Caption="{Binding Name}" GroupsSource="{Binding Groups}" GroupTemplate="{StaticResource groupTemplate}"/>
+                    </ContentControl>
+                </DataTemplate>
+                
+                <DataTemplate x:Key="categoryTemplate">
+                    <ContentControl>
+                        <dxr:RibbonDefaultPageCategory Caption="{Binding Name}" PagesSource="{Binding Pages}" PageTemplate="{StaticResource pageTemplate}"/>
+                    </ContentControl>
+                </DataTemplate>
+            </DockPanel.Resources>
+
+            <dxr:RibbonControl
+                DockPanel.Dock="Top" 
+                RibbonStyle="Office2010"
+                helpers:BlendHelperForBarsAndRibbon.IsDesignControl="true"
+                RibbonTitleBarVisibility="Visible"
+                ShowApplicationButton="True"
+                IsMinimized="True"
+                CategoriesSource="{Binding Categories}" 
+                CategoryTemplate="{StaticResource categoryTemplate}"
+                ToolbarItemLinksSource="{Binding Desks}"
+                ToolbarItemTemplate="{StaticResource checkTemplate}"
+                PageHeaderItemLinksSource="{Binding Desks}">
+
+                <dxr:RibbonControl.ApplicationMenu>
+                    <dxr:ApplicationMenu 
+                        RightPaneWidth="280" 
+                        ShowRightPane="True">
+                        <dxr:ApplicationMenu.ItemLinks>
+                            <dxb:BarItemLink BarItemName="bNew"/>
+                            <dxb:BarItemLink BarItemName="bOpen"/>
+                            <dxb:BarItemLinkSeparator/>
+                            <dxb:BarItemLink BarItemName="bSave"/>
+                            <dxb:BarItemLink BarItemName="bPrint"/>
+                        </dxr:ApplicationMenu.ItemLinks>
+
+                        <dxr:ApplicationMenu.RightPane>
+                            <Border Background="White" BorderThickness="1,0,0,0" BorderBrush="LightGray">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Border BorderThickness="0,0,0,1" BorderBrush="LightGray" Margin="7,5,5,0">
+                                        <Label FontWeight="Bold">Recent Documents:</Label>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </dxr:ApplicationMenu.RightPane>
+                        
+                        <dxr:ApplicationMenu.BottomPane>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Options" Width="100" Margin="0,0,10,0" />
+                                <Button Content="Exit" Width="100" />
+                            </StackPanel>
+                        </dxr:ApplicationMenu.BottomPane>
+                    </dxr:ApplicationMenu>
+                </dxr:RibbonControl.ApplicationMenu>
+            </dxr:RibbonControl>
+
+            <views:MainView />
+        </DockPanel>
+    </dxb:BarManager>
+</dxr:DXRibbonWindow>
