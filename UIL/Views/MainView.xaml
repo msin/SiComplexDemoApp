@@ -6,18 +6,13 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:internal="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/internal"
                 xmlns:themeKeys="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/themekeys"
+                xmlns:views="clr-namespace:IocApp.UIL.Views"
                 Background="WhiteSmoke"
                 mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid.Resources>
         <DataTemplate x:Key="deskTemplate">
-            <Grid>
-                <TextBlock
-                    Text="{Binding Desc}" FontSize="72" FontWeight="DemiBold"
-                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Foreground="Gray" Opacity="0.1"
-                    />
-            </Grid>
+            <views:FormRoot/>
         </DataTemplate>
     </Grid.Resources>
 

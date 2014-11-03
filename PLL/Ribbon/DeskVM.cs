@@ -1,4 +1,5 @@
-﻿using IocApp.CIL;
+﻿using System.Collections.ObjectModel;
+using IocApp.CIL;
 using IocApp.CIL.Ribbon;
 
 namespace IocApp.PLL.Ribbon
@@ -12,6 +13,13 @@ namespace IocApp.PLL.Ribbon
         public virtual string Name { get; set; }
 
         public virtual string Desc { get; set; }
+
+        public virtual ObservableCollection<IForm> Forms { get; set; }
+
+        public DeskVM()
+        {
+            Forms = new ObservableCollection<IForm>();
+        }
 
         protected void OnCheckedChanged()
         {

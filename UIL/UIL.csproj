@@ -58,9 +58,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\LIB\DevExpress.Xpf.Core.v14.1.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Xpf.Docking.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LIB\DevExpress.Xpf.Docking.v14.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Layout.v14.1.Core, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LIB\DevExpress.Xpf.Layout.v14.1.Core.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Xpf.Ribbon.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\LIB\DevExpress.Xpf.Ribbon.v14.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.Office2007Blue.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LIB\DevExpress.Xpf.Themes.Office2007Blue.v14.1.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -96,6 +108,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Views\FormRoot.xaml.cs">
+      <DependentUpon>FormRoot.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormView.xaml.cs">
+      <DependentUpon>FormView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -114,6 +132,14 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\FormRoot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FormView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -133,6 +159,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Desktop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\IDE_16x16.png" />
+    <Resource Include="Images\Mail_16x16.png" />
+    <Resource Include="Images\OS_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Grid_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Bar_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

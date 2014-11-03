@@ -23,6 +23,8 @@ namespace IocApp.PLL
 
             IoC.Instance.Register<IDesk>(ViewModelSource.Create<DeskVM>);
 
+            IoC.Instance.Register<IForm>(ViewModelSource.Create<FormVM>);
+
             #endregion
 
             IoC.Instance.RegisterSingle<IMain>(ViewModelSource.Create<MainVM>);

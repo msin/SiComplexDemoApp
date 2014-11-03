@@ -1,4 +1,6 @@
-﻿namespace IocApp.CIL.Ribbon
+﻿using System.Collections.ObjectModel;
+
+namespace IocApp.CIL.Ribbon
 {
     public interface IDesk
     {
@@ -9,5 +11,7 @@
         string Name { get; set; }
 
         string Desc{ get; set; }
+
+        ObservableCollection<IForm> Forms { get; set; } 
     }
 }

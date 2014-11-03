@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Security.Cryptography;
+using System.Windows;
 using DevExpress.Mvvm;
 using IocApp.CIL;
 using IocApp.CIL.Ribbon;
@@ -8,7 +10,7 @@ namespace IocApp.PLL.Ribbon
     public class RibbonVM : IRibbon
     {
         public virtual ObservableCollection<ICategory> Categories { get; set; }
-        
+
         public ObservableCollection<IDesk> Desks { get; set; }
 
         public virtual int DesktopIndex { get; set; }
@@ -35,6 +37,9 @@ namespace IocApp.PLL.Ribbon
 
             int itemNo = 1;
             int groupNo = 1;
+            int formNo = 1;
+
+            string[] icon = {"IDE", "Mail", "OS", "Grid", "Bar"};
 
             for (int ip = 1; ip < 4; ip++)
             {
@@ -61,12 +66,6 @@ namespace IocApp.PLL.Ribbon
                 category.Pages.Add(page);
             }
 
-            //var desk = IoC.Instance.GetInstance<IPage>();
-            //desk.Name = "Virtual Desktop";
-            //var grp = IoC.Instance.GetInstance<IGroup>();
-
-            //category.Pages.Add(desk);
-
             Categories = new ObservableCollection<ICategory> { category };
 
             Desks = new ObservableCollection<IDesk>();
@@ -79,6 +78,18 @@ namespace IocApp.PLL.Ribbon
                 var desk = IoC.Instance.GetInstance<IDesk>();
                 desk.Index = id;
                 desk.Desc = "Virtual Destop " + id;
+
+                for (int im = 0; im < 5; im++)
+                {
+                    var form = IoC.Instance.GetInstance<IForm>();
+                    form.Caption = "Form" + formNo++;
+                    form.Size = new Size(300d, 200d);
+                    form.Location = new Point(50d + 100d * im, 50d + 50d * im);
+                    form.Icon = "/IocApp.UIL;component/Images/" + icon[im] + "_16x16.png";
+                    desk.Forms.Add(form);
+                    desk.Desc += "\n" + form.Caption;
+                }
+
                 Desks.Add(desk);
             }
 
