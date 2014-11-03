@@ -144,6 +144,20 @@ namespace IocApp.CIL
             _container.Register<TService, Service>();
         }
 
+        //  Регистрация экземпляра сервиса (синглтон) по типу (конструктор с параметрами)
+        [DebuggerStepThrough]
+        public void Register(Type tService, Type service)
+        {
+            _container.Register(tService, service);
+        }
+
+        //  Регистрация экземпляра сервиса по типу (конструктор с параметрами)
+        [DebuggerStepThrough]
+        public void RegisterSingle(Type tService, Type service)
+        {
+            _container.RegisterSingle(tService, service);
+        }
+
         //  Регистрация экземпляра сервиса (синглтон) с параметризованным конструктором через делегат
         [DebuggerStepThrough]
         public void Register<TService>(Func<TService> fun)

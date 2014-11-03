@@ -1,4 +1,7 @@
-﻿using DevExpress.Mvvm.POCO;
+﻿using DevExpress.Mvvm;
+using DevExpress.Mvvm.POCO;
+using DevExpress.Mvvm.UI;
+using DevExpress.Xpf.Core;
 using IocApp.CIL;
 using IocApp.CIL.Ribbon;
 using IocApp.PLL.Ribbon;
@@ -11,7 +14,8 @@ namespace IocApp.PLL
         {
             #region | Ribbon ViewModels |
 
-            IoC.Instance.Register<IItem>(ViewModelSource.Create<ItemVM>);
+            //IoC.Instance.Register<IItem>(ViewModelSource.Create<ItemVM>);
+            IoC.Instance.Register(typeof(IItem), ViewModelSource.GetPOCOType(typeof(ItemVM)));
 
             IoC.Instance.Register<IGroup>(ViewModelSource.Create<GroupVM>);
 
@@ -27,7 +31,12 @@ namespace IocApp.PLL
 
             #endregion
 
-            IoC.Instance.RegisterSingle<IMain>(ViewModelSource.Create<MainVM>);
+            IoC.Instance.Register(typeof(IMain), ViewModelSource.GetPOCOType(typeof(MainVM)));
+
+            IoC.Instance.RegisterSingle<IMessageBoxService, DXMessageBoxService>();
+
+            IoC.Instance.RegisterSingle<INotificationService>(() =>
+                new NotificationService { PredefinedNotificationTemplate = NotificationTemplate.ShortHeaderAndLongText });
         }
     }
 }

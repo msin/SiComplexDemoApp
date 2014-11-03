@@ -23,7 +23,7 @@
 
     <dxb:BarManager helpers:BlendHelperForBarsAndRibbon.IsDesignControl="true">
         <dxb:BarManager.Items>
-            <dxb:BarButtonItem Name="bPrevDesk" Content="Prev" 
+            <!--<dxb:BarButtonItem Name="bPrevDesk" Content="Prev" 
                                Glyph="{dx:DXImage Image=Prev_16x16.png}" 
                                LargeGlyph="{dx:DXImage Image=Prev_32x32.png}"  
                                Description="Move to previous desktop."
@@ -34,7 +34,7 @@
                                LargeGlyph="{dx:DXImage Image=Next_32x32.png}"  
                                Description="Move to next desktop."
                                Hint="Next DeskTop"
-                               />
+                               />-->
             <dxb:BarButtonItem Name="bNew" Content="New" 
                                Glyph="{dx:DXImage Image=New_16x16.png}" 
                                LargeGlyph="{dx:DXImage Image=New_32x32.png}" 
